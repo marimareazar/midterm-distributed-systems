@@ -1,0 +1,24 @@
+{
+  "workload": "small",
+  "chunking_mode": "fixed",
+  "replication": {
+    "method": "replication",
+    "bucket": "bench-replication-1793176005",
+    "files": 20,
+    "logical_bytes": 215040,
+    "additional_physical_bytes": 645120,
+    "storage_overhead": 3.0,
+    "upload_seconds": 1.13,
+    "throughput_MB_per_second": 0.18
+  },
+  "erasure_coding": {
+    "method": "erasure",
+    "bucket": "bench-erasure-1793176006",
+    "files": 20,
+    "logical_bytes": 215040,
+    "additional_physical_bytes": 322560,
+    "storage_overhead": 1.5,
+    "upload_seconds": 1.27,
+    "throughput_MB_per_second": 0.16
+  }
+}

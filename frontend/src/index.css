@@ -1,0 +1,15 @@
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  background: #f5f8fc;
+  color: #23354c;
+}
+
+button, input, select {
+  font-family: inherit;
+}

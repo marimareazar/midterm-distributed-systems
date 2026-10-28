@@ -1,0 +1,15 @@
+
+.venv/
+venv/
+.git/
+.idea/
+__pycache__/
+*.pyc
+.env
+*.bin
+*.txt
+!**/requirements.txt
+storage_node_phase2_backup/
+metadata_service_phase2_backup/
+tests/
+postgres_data/

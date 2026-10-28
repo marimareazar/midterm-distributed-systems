@@ -1,6 +1,15 @@
+
 .venv/
 venv/
 __pycache__/
 *.pyc
 .idea/
 .env
+
+*.bin
+downloaded.txt
+sample.txt
+retrieved12.bin
+
+storage_node_phase2_backup/
+metadata_service_phase2_backup/
