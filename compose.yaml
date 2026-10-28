@@ -1,0 +1,154 @@
+
+services:
+
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: storage
+      POSTGRES_PASSWORD: storagepass
+      POSTGRES_DB: storage
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U storage -d storage" ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  metadata:
+    build:
+      context: .
+      dockerfile: metadata_service/Dockerfile
+    environment:
+      DATABASE_URL: postgresql://storage:storagepass@db:5432/storage
+    ports:
+      - "8100:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  node1:
+    build:
+      context: .
+      dockerfile: storage_node/Dockerfile
+    environment:
+      NODE_ID: node-1
+      STORAGE_DIR: /data
+      METADATA_URL: http://metadata:8000
+    volumes:
+      - node1_data:/data
+    ports:
+      - "8001:8000"
+    depends_on:
+      - metadata
+
+  node2:
+    build:
+      context: .
+      dockerfile: storage_node/Dockerfile
+    environment:
+      NODE_ID: node-2
+      STORAGE_DIR: /data
+      METADATA_URL: http://metadata:8000
+    volumes:
+      - node2_data:/data
+    ports:
+      - "8002:8000"
+    depends_on:
+      - metadata
+
+  node3:
+    build:
+      context: .
+      dockerfile: storage_node/Dockerfile
+    environment:
+      NODE_ID: node-3
+      STORAGE_DIR: /data
+      METADATA_URL: http://metadata:8000
+    volumes:
+      - node3_data:/data
+    ports:
+      - "8003:8000"
+    depends_on:
+      - metadata
+
+  node4:
+    build:
+      context: .
+      dockerfile: storage_node/Dockerfile
+    environment:
+      NODE_ID: node-4
+      STORAGE_DIR: /data
+      METADATA_URL: http://metadata:8000
+    volumes:
+      - node4_data:/data
+    ports:
+      - "8004:8000"
+    depends_on:
+      - metadata
+
+  node5:
+    profiles:
+      - extra
+    build:
+      context: .
+      dockerfile: storage_node/Dockerfile
+    environment:
+      NODE_ID: node-5
+      STORAGE_DIR: /data
+      METADATA_URL: http://metadata:8000
+    volumes:
+      - node5_data:/data
+    ports:
+      - "8005:8000"
+    depends_on:
+      - metadata
+
+
+  node6:
+    profiles:
+      - extra
+    build:
+      context: .
+      dockerfile: storage_node/Dockerfile
+    environment:
+      NODE_ID: node-6
+      STORAGE_DIR: /data
+      METADATA_URL: http://metadata:8000
+    volumes:
+      - node6_data:/data
+    ports:
+      - "8006:8000"
+    depends_on:
+      - metadata
+
+
+  node7:
+    profiles:
+      - replacement
+    build:
+      context: .
+      dockerfile: storage_node/Dockerfile
+    environment:
+      NODE_ID: node-7
+      STORAGE_DIR: /data
+      METADATA_URL: http://metadata:8000
+    volumes:
+      - node7_data:/data
+    ports:
+      - "8007:8000"
+    depends_on:
+      - metadata
+
+
+volumes:
+  postgres_data:
+  node1_data:
+  node2_data:
+  node3_data:
+  node4_data:
+  node5_data:
+  node6_data:
+  node7_data:
